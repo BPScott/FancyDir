@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<!--#if expr="${REQUEST_URI} = /^([^?]*)?(?:.*)$/" -->
+<!--#set var="uri_sans_query" value="$1" -->
+<!--#endif -->
+<!--#set var="heading" value="Listing Directory: ${HTTP_HOST}${uri_sans_query}" -->
+
+<title><!--#echo var="heading" --></title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+<!--#if expr="${DOCUMENT_URI} = /^(.*)\/header.shtml$/" -->
+<!--#set var="thisfolder" value="$1" -->
+<!--#endif -->
+<link href="<!--#echo var="thisfolder" -->/style.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+<script type="text/javascript" src="<!--#echo var="thisfolder" -->/javascript.js"></script>
+<script type="text/javascript" src="<!--#echo var="thisfolder" -->/thickbox.js"></script>
+</head>
+<body>
+<div id="page">
+
+
+<h1><!--#echo var="heading" --></h1>

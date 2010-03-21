@@ -1,0 +1,51 @@
+#Start FancyDir Config
+Options +Indexes
+
+IndexOptions +FancyIndexing +FoldersFirst +XHTML +HTMLTable +SuppressRules +IgnoreCase +SuppressHTMLPreamble +SuppressDescription
+IndexOptions +IconsAreLinks +IconHeight=16 +IconWidth=16 +NameWidth=*
+
+IndexIgnore .htaccess /fancydir
+
+HeaderName /fancydir/header.shtml
+ReadmeName /fancydir/footer.shtml
+
+#Allow SSI
+Options +Includes
+AddOutputFilter INCLUDES;DEFLATE shtml
+
+#Icons
+DefaultIcon /fancydir/icons/page_white.png
+AddIcon /fancydir/icons/arrow_merge.png ..
+AddIcon /fancydir/icons/folder.png  ^^DIRECTORY^^
+AddIcon /fancydir/icons/blank.png ^^BLANKICON^^
+AddIcon /fancydir/icons/application.png .exe
+#code
+AddIcon /fancydir/icons/page_white_code.png .htm .html .shtm .shtml .css
+AddIcon /fancydir/icons/page_white_php.png .php
+AddIcon /fancydir/icons/page_white_visualstudio.png .sln .project .proj .asp .aspx .vb .vbx
+AddIcon /fancydir/icons/page_white_c.png .c
+AddIcon /fancydir/icons/page_white_csharp.png .cs
+AddIcon /fancydir/icons/page_white_cplusplus.png .cpp
+AddIcon /fancydir/icons/page_white_ruby.png .rb
+AddIcon /fancydir/icons/page_white_cup.png .java .class
+AddIcon /fancydir/icons/page_white_h.png .h
+AddIcon /fancydir/icons/page_white_code.png .py .pl 
+#office
+AddIcon /fancydir/icons/page_white_word.png .doc .docx
+AddIcon /fancydir/icons/page_white_excel.png .xls .xlsx
+AddIcon /fancydir/icons/page_white_powerpoint.png .ppt .pptx
+AddIcon /fancydir/icons/page_white_database.png .mdb
+ #adobe
+AddIcon /fancydir/icons/page_white_acrobat.png .pdf
+AddIcon /fancydir/icons/page_white_flash.png .fla .swf
+AddIcon /fancydir/icons/page_white_actionscript.png .as
+#other
+AddIcon /fancydir/icons/page_white_zip.png .zip .rar .7z .ace .tar .gz
+AddIcon /fancydir/icons/page_white_tux.png .sh .rpm .deb .ebuild
+#general
+AddIconByType /fancydir/icons/image.png image/*
+AddIconByType /fancydir/icons/sound.png audio/*
+AddIconByType /fancydir/icons/film.png video/*
+AddIconByType /fancydir/icons/page_white_text.png text/*
+
+#End FancyDir Config
