@@ -1,22 +1,23 @@
 $(function() {
 //Get the filename elements now rather than on every keyup
 var filenameeles = $('table tr:gt(1) td:nth-child(2) a');
+var heading = document.getElementsByTagName('h1')[0];
 
 //Striped rows
-$('table tr:gt(0):odd').addClass('alt');
+$('table tr:gt(1):even').addClass('alt');
 
 //Search box
 $('<input type="text" id="filter" title="Search"/>').blur(function (){
-	if (this.value === '') { $(this).val(this.title).addClass('hint'); }
+	if (this.value === '') { this.value = this.title; this.className = 'hint'; }
 }).focus(function (){ 
-	if (this.value === this.title) { $(this).val('').removeClass('hint'); } 
+	if (this.value === this.title) { this.value = ''; this.className = ''; } 
 }).keyup(function(e){
 	//short circuit empty search box	
 	if (this.value === '') {
 		//force everything to show and reset striped rows
-		$('table tr:gt(0)').each(function(i){
-			this.style.display = 'table-row';
-			this.className = ((i % 2) ? 'alt' : '');
+		filenameeles.each(function(i){
+			this.parentNode.parentNode.style.display = 'table-row';
+			this.parentNode.parentNode.className = ((i % 2) ? '' : 'alt');
 		});
 	}
 	else {
@@ -26,18 +27,17 @@ $('<input type="text" id="filter" title="Search"/>').blur(function (){
 			if (filterregex.test(this.innerHTML)){
 				this.parentNode.parentNode.style.display = 'table-row';
 				//Work out the striped rows as we go
-				this.parentNode.parentNode.className = ((++i % 2)? 'alt' : '');
+				this.parentNode.parentNode.className = ((i++ % 2)? '' : 'alt');
 			}
 			else {
 				this.parentNode.parentNode.style.display = 'none';
 			}
 		});
 	}
-}).blur().insertBefore('h1');
+}).blur().insertBefore(heading);
 
 
 //Turn directory name into breadcrumb links
-var heading = document.getElementsByTagName('h1')[0];
 var breadcrumbs = heading.innerHTML.match(/[^:]*: (.*)\//)[1].split('/');
 var pathsofar = document.location.protocol + '//';
 
