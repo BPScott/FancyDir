@@ -1,38 +1,44 @@
 $(document).ready(function() {
 
-//Stripey Rows
+//Striped Rows
 $('table tr:gt(0):odd').addClass('alt');
 
 //append search box to the dom
-$('h1').before('<input type="text" id="filter" Title="Search"/>');
+$('<input type="text" id="filter" title="Search"/>').blur(function (){
+	if (this.value == '') { $(this).val(this.title).addClass('hint'); }
+}).focus(function (){ 
+	if (this.value == this.title) { $(this).val('').removeClass('hint'); } 
+}).blur().insertBefore('h1');
 
-//text -> title
-$('input:text').each(function() {
-	var t = $(this);
-	var title = t.attr('title'); 
-	if (title) {
-		t.blur(function (){ if (t.val() == '') { t.val(title).addClass('hint'); } });
-		t.focus(function (){ if (t.val() == title) { t.val('').removeClass('hint'); } });
-		t.parents('form:first').submit(function(){ if (t.val() == title) { t.val('').removeClass('hint');} });
-		t.blur();
-	};
-});
+//Get the filename elements now rather than on every keyup
+filenameeles = $('table tr:gt(1) td:nth-child(2) a');
 
 //Search filter
 $('#filter').keyup(function(e) {
 	var filterval = $('#filter').val();
-	var filterregex = new RegExp(filterval, "i");
-	$('table tr:gt(1) td:nth-child(2) a').each(function() {
-		if (filterval == '' || filterregex.test($(this).text())) {
-			$(this).parents('tr:first').show();
-		}
-		else {
-			$(this).parents('tr:first').hide();
-		};
-	});
-	//reset stripey rows
-	$('table tr:visible:gt(0):odd').addClass('alt');
-	$('table tr:visible:gt(0):even').removeClass('alt');
+	
+	//short circuit empty search box	
+	if (filterval == '') {
+		//force everything to show and reset striped rows
+		$('table tr:gt(0)').each(function(i){
+			this.style['display'] = 'table-row';
+			this.className = ((i % 2) ? 'alt' : '');
+		});
+	}
+	else {
+		var filterregex = new RegExp(filterval, "i"), i=0;
+		filenameeles.each(function() {
+			//parentNode.parentNode shall be the tr
+			if (filterregex.test(this.innerHTML)){
+				this.parentNode.parentNode.style['display'] = 'table-row';
+				//Work out the striped rows as we go
+				this.parentNode.parentNode.className = ((++i % 2)? 'alt' : '');
+			}
+			else {
+				this.parentNode.parentNode.style['display'] = 'none';
+			};
+		});
+	};
 });
 
 //Turn directory name into breadcrumb links
@@ -45,7 +51,7 @@ $.each(breadcrumbs, function(i) {
 $('h1').html($('h1').text().replace(/: (.*)\//, ': ' + breadcrumbs.join('/') + '/'));
 
 //Applying thickbox to relevant links
-$('table tr:gt(1) td:nth-child(2) a').each(function() {
+filenameeles.each(function() {
 	var imageextensions = /\.(jpe?g|png|gif|bmp)$/i;
 	var iframeextensions = /\.(txt|htm|html|shtm|shtml|css|js|php|asp|aspx|vb|vbx|c|cs|cpp|rb|java|h|py|cfm|cfc)$/i;
 	
@@ -58,7 +64,7 @@ $('table tr:gt(1) td:nth-child(2) a').each(function() {
 	};
 });
 
-//fix for IE6not knowing of some CSS selectors  - Yes I know browser sniffing is bad and this shouldn't make a difference to other borwsers, but you can't be too careful
+//fix for IE 6not knowing of some CSS selectors  - Yes I know browser sniffing is bad and this shouldn't make a difference to other browsers, but you can't be too careful
 if (jQuery.browser.msie && jQuery.browser.version == '6.0') {
 	$('table tr td:first-child').addClass('IE_fixleftborder');
 	$('table td+td+td+td').addClass('IE_fixrightborder');
