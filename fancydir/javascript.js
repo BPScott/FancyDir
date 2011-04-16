@@ -50,20 +50,6 @@ $.each(breadcrumbs, function(i) {
 });
 $('h1').html($('h1').text().replace(/: (.*)\//, ': ' + breadcrumbs.join('/') + '/'));
 
-//Applying thickbox to relevant links
-filenameeles.each(function() {
-	var imageextensions = /\.(jpe?g|png|gif|bmp)$/i;
-	var iframeextensions = /\.(txt|htm|html|shtm|shtml|css|js|php|asp|aspx|vb|vbx|c|cs|cpp|rb|java|h|py|cfm|cfc)$/i;
-	
-	if (imageextensions.test($(this).attr('href'))) {
-		$(this).addClass('thickbox').attr('title', $(this).text());
-	}
-	else if (iframeextensions.test($(this).attr('href'))) {
-		$(this).addClass('thickbox').attr('title', $(this).text());
-		$(this).attr('href', $(this).attr('href') + '?KeepThis=true&TB_iframe=true&height=400&width=760');
-	};
-});
-
 //fix for IE 6not knowing of some CSS selectors  - Yes I know browser sniffing is bad and this shouldn't make a difference to other browsers, but you can't be too careful
 if (jQuery.browser.msie && jQuery.browser.version == '6.0') {
 	$('table tr td:first-child').addClass('IE_fixleftborder');
