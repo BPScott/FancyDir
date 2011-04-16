@@ -13,8 +13,6 @@
 <!--#set var="thisfolder" value="$1" -->
 <!--#endif -->
 <link href="<!--#echo var="thisfolder" -->/style.css" type="text/css" rel="stylesheet" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-<script type="text/javascript" src="<!--#echo var="thisfolder" -->/javascript.js"></script>
 </head>
 <body>
 <div id="page">

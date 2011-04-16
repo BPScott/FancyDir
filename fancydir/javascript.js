@@ -1,65 +1,83 @@
-$(function() {
+(function(){
+function addEvent(obj, type, fn) {
+	if (obj.addEventListener){
+		obj.addEventListener( type, fn, false );
+	}
+	else if (obj.attachEvent) {
+		obj["e"+type+fn] = fn;
+		obj[type+fn] = function() { obj["e"+type+fn]( window.event ); };
+		obj.attachEvent( "on"+type, obj[type+fn] );
+	}
+}
+
+var tableRows = document.getElementsByTagName('tr'); //this includes the first item, which we never want
+
 //Get the filename elements now rather than on every keyup
-var filenameeles = $('table tr:gt(1) td:nth-child(2) a');
+var filenameEles = [], i;
+for (i=2; i< tableRows.length; i++) {
+	filenameEles.push(tableRows[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0]);
+}
+
 var heading = document.getElementsByTagName('h1')[0];
 
 //Striped rows
-$('table tr:gt(1):even').addClass('alt');
+for (i=1; i< tableRows.length; i++) {
+	tableRows[i].className = (i % 2 ? '' : 'alt');
+}
 
 //Search box
-$('<input type="text" id="filter" title="Search"/>').blur(function (){
+var searchBox = document.createElement('input');
+searchBox.id = 'filter';
+searchBox.type = 'text';
+searchBox.title = 'Search';
+searchBox.className = 'hint';
+searchBox.value = searchBox.title;
+
+addEvent(searchBox, 'blur', function(){
 	if (this.value === '') { this.value = this.title; this.className = 'hint'; }
-}).focus(function (){ 
+});
+
+addEvent(searchBox, 'focus', function(){ 
 	if (this.value === this.title) { this.value = ''; this.className = ''; } 
-}).keyup(function(e){
+});
+
+addEvent(searchBox, 'keyup', function(e){
+	var i;
 	//short circuit empty search box	
 	if (this.value === '') {
 		//force everything to show and reset striped rows
-		filenameeles.each(function(i){
-			this.parentNode.parentNode.style.display = 'table-row';
-			this.parentNode.parentNode.className = ((i % 2) ? '' : 'alt');
-		});
+		for (i in filenameEles) {
+			filenameEles[i].parentNode.parentNode.style.display = 'table-row';
+			filenameEles[i].parentNode.parentNode.className = ((i % 2) ? '' : 'alt');
+		}
 	}
 	else {
-		var filterregex = new RegExp(this.value, "i"), i=0;
-		filenameeles.each(function() {
+		var filterregex = new RegExp(this.value, "i"), j=0;
+		for (i in filenameEles) {
+			var ele = filenameEles[i];
 			//parentNode.parentNode shall be the tr
-			if (filterregex.test(this.innerHTML)){
-				this.parentNode.parentNode.style.display = 'table-row';
+			if (filterregex.test(ele.innerHTML)) {
+				ele.parentNode.parentNode.style.display = 'table-row';
 				//Work out the striped rows as we go
-				this.parentNode.parentNode.className = ((i++ % 2)? '' : 'alt');
+				ele.parentNode.parentNode.className = ((j++ % 2) ? '' : 'alt');
 			}
 			else {
-				this.parentNode.parentNode.style.display = 'none';
+				ele.parentNode.parentNode.style.display = 'none';
 			}
-		});
+		}
 	}
-}).blur().insertBefore(heading);
+});
+
+heading.parentNode.insertBefore(searchBox, heading);
 
 
 //Turn directory name into breadcrumb links
 var breadcrumbs = heading.innerHTML.match(/[^:]*: (.*)\//)[1].split('/');
 var pathsofar = document.location.protocol + '//';
 
-for (var i in breadcrumbs) {
+for (i in breadcrumbs) {
 	pathsofar += breadcrumbs[i] + '/';
 	breadcrumbs[i] = ('<a href="' + pathsofar + '">' + decodeURI(breadcrumbs[i]) + '</a>');
 }
 heading.innerHTML = heading.innerHTML.replace(/: (.*)\//, ': ' + breadcrumbs.join('/') + '/');
-
-
-//fix for IE 6 not knowing of some CSS selectors  - Yes I know browser sniffing is bad and this shouldn't make a difference to other browsers, but you can't be too careful
-if (jQuery.browser.msie && jQuery.browser.version == '6.0') {
-	$('table tr td:first-child').addClass('IE_fixleftborder');
-	$('table td+td+td+td').addClass('IE_fixrightborder');
-	$('table tr:first-child th').addClass('IE_fixtopborder');
-	$('table').addClass('IE_fixbottomborder');
-
-	$('td:first-child').addClass('IE_fixcol1');
-	$('td+td').addClass('IE_fixcol2');
-	$('td+td+td').addClass('IE_fixcol3');
-	$('td+td+td+td').addClass('IE_fixcol4');
-	$('td+td+td+td+td').addClass('IE_fixcol5');
-}
-
-});
+})();
