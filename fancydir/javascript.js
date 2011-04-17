@@ -42,13 +42,13 @@ addEvent(searchBox, 'focus', function(){
 	if (this.value === this.title) { this.value = ''; this.className = ''; } 
 });
 
-addEvent(searchBox, 'keyup', function(e){
+addEvent(searchBox, 'keyup', function(){
 	var i;
 	//short circuit empty search box	
 	if (this.value === '') {
 		//force everything to show and reset striped rows
 		for (i in filenameEles) {
-			filenameEles[i].parentNode.parentNode.style.display = 'table-row';
+			filenameEles[i].parentNode.parentNode.style.display = '';
 			filenameEles[i].parentNode.parentNode.className = ((i % 2) ? '' : 'alt');
 		}
 	}
@@ -58,7 +58,7 @@ addEvent(searchBox, 'keyup', function(e){
 			var ele = filenameEles[i];
 			//parentNode.parentNode shall be the tr
 			if (filterregex.test(ele.innerHTML)) {
-				ele.parentNode.parentNode.style.display = 'table-row';
+				ele.parentNode.parentNode.style.display = '';
 				//Work out the striped rows as we go
 				ele.parentNode.parentNode.className = ((j++ % 2) ? '' : 'alt');
 			}
