@@ -14,8 +14,9 @@ var tableRows = document.getElementsByTagName('tr'); //this includes the first i
 
 //Get the filename elements now rather than on every keyup
 var filenameEles = [], i;
-for (i=2; i< tableRows.length; i++) {
-	filenameEles.push(tableRows[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0]);
+for (i=1; i< tableRows.length; i++) {
+	var linkEle = tableRows[i].getElementsByTagName('td')[1].getElementsByTagName('a')[0];
+	if (linkEle.innerHTML !== "Parent Directory") { filenameEles.push(linkEle); }
 }
 
 var heading = document.getElementsByTagName('h1')[0];
