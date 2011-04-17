@@ -10,7 +10,7 @@ Because it uses Apache's mod_autoindex FancyDir <em>does not</em> rely on any ad
 * Degrades gracefully &mdash; While some features require JavaScript, if it is disabled users are still presented with a clear layout.
 
 ##Updates
-* v2.0 &mdash; Search is now much faster, removed lightbox effects (they're so 2008), removed all dependancies on jQuery and dropped support for IE6.
+* v2.0 &mdash; 2011/04/17 &mdash; Search is now much faster, removed lightbox effects (they're so 2008), removed all dependancies on jQuery and dropped support for IE6.
 * v1.0.1 &mdash; 2008/08/05 &mdash; Optimised the search slightly and added more content types to display within the iframe.
 * v1.0 &mdash; 2008/07/20 &mdash; FancyDir's first release.
 
