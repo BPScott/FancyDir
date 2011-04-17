@@ -23,12 +23,11 @@ tr:first-child:hover { background-color:white; }
 td, th { padding: 0 2px; margin:0; }
 th a {text-decoration:underline; display:inline;}
 
-td:first-child, .IE_fixcol1 { width: 24px; text-align:center;}
-td+td, .IE_fixcol2 {width: auto; }
-td+td+td, .IE_fixcol3 {width: 20%; }
-td+td+td+td, .IE_fixcol4 {width: 10%; }
-td+td+td+td+td  { display:none; } .IE_fixcol5  { display:none; } /* Fully supress the description column */ 
-/* This is the most arbitaryly stupid bug ever, IE6 ignores 4 sibling selectors, but make it 5 and and other selections get ignored */
+td:first-child { width: 24px; text-align:center;}
+td+td {width: auto; }
+td+td+td {width: 20%; }
+td+td+td+td {width: 10%; }
+td+td+td+td+td  { display:none; } /* Fully supress the description column */ 
 
 #filter {
 float:right;
@@ -48,8 +47,6 @@ text-align:right;
 }
 
 /* IE border fix because it doesn't display borders on tr elements  workaround by giving td's borders in IE7 / classes that JS can hook onto in IE6 */
-table tr td:first-child, .IE_fixleftborder { border-left:1px solid #444 !important; }
-table tr td+td+td+td  { border-right:1px solid #444 !important; } .IE_fixrightborder { border-right:1px solid #444 !important; }
-table tr:first-child th, .IE_fixtopborder, .IE_fixbottomborder  { border-bottom:1px solid #444 !important; }
-/* Don't show table border for IE6 as it doesn's support the above selectors */
-* html table { border:none; }
+table tr td:first-child { border-left:1px solid #444 !important; }
+table tr td+td+td+td { border-right:1px solid #444 !important; } .IE_fixrightborder { border-right:1px solid #444 !important; }
+table tr:first-child th { border-bottom:1px solid #444 !important; }
