@@ -9,12 +9,13 @@ Because it uses Apache's mod_autoindex FancyDir <em>does not</em> rely on any ad
 * Tested in major browsers (Internet Explorer 7&ndash;9, Firefox, Opera and Chrome).
 * Degrades gracefully &mdash; While some features require JavaScript, if it is disabled users are still presented with a clear layout.
 
-## Updates
+##Updates
+* v2.0 &mdash; Search is now much faster, removed lightbox effects (they're so 2008), removed all dependancies on jQuery and dropped support for IE6.
 * v1.0.1 &mdash; 2008/08/05 &mdash; Optimised the search slightly and added more content types to display within the iframe.
 * v1.0 &mdash; 2008/07/20 &mdash; FancyDir's first release.
 
 ##Download & Installation
-1. Download [FancyDir-v1.0.1.zip](https://github.com/BPScott/FancyDir/zipball/v1.01)
+1. Download [FancyDir-v2.0.zip](https://github.com/BPScott/FancyDir/zipball/v2.0)
 2. Upload the fancydir directory to the root of your domain (so it would be accessible at yourdomain.com/fancydir/)
 3. Upload the .htaccess file to the root of your domain, if a .htaccess file already exists then append the contents of the fancydir .htaccess file to your own.
 4. Enjoy your fancy directory listings.
