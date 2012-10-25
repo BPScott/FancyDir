@@ -1,0 +1,10 @@
+<div id="footer">
+<a href="http://www.reload.me.uk/fancydir">FancyDir</a> || <a href="http://www.famfamfam.com/lab/icons/silk/">Silk Iconset</a>
+</div>
+</div>
+<!--#if expr="${DOCUMENT_URI} = /^(.*)\/footer.shtml$/" -->
+<!--#set var="thisfolder" value="$1" -->
+<!--#endif -->
+<script type="text/javascript" src="<!--#echo var="thisfolder" -->/javascript.js"></script>
+</body>
+</html>
